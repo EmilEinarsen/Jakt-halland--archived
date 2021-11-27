@@ -1,0 +1,43 @@
+@import 'layout';
+@import 'nav';
+
+html {
+	overflow-y: auto;
+	overflow-y: overlay;
+	overflow-x: auto;
+	overflow-x: hidden;
+}
+
+/* 
+	Used in useDisableScroll
+	example usecase:
+
+	Disable body scroll when mobile menu is open
+*/
+html.no-scroll {
+	overflow-y: hidden;
+	.header {
+		margin-right: 17px
+	}
+}
+
+// d-[""]-mobile is used to hide elements relative to mobile without JS
+.d-not-mobile {
+	@media (max-width: 48em) {
+		display: none !important;
+	}
+}
+.d-only-mobile {
+	@media (min-width: 48em) {
+		display: none !important;
+	}
+}
+
+article ul[role=list] {
+	margin-left: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+article h2 {
+	border-bottom-width: 1px;
+}

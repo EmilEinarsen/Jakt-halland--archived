@@ -1,0 +1,68 @@
+$header-height: 120px;
+$footer-height: 120px;
+$page-content-gap: 5rem;
+$border-width: 2px;
+
+.wrapper {
+	min-width: var(--sizes-xs);
+	min-height: 100%;
+}
+
+.page::before {
+	content: '';
+	display: block;
+	height: $header-height;
+}
+
+.header__container, .main__container, .footer__container {
+	position: relative;
+	max-width: var(--sizes-container-lg);
+	margin: 0 auto;
+	padding: 0 30px;
+}
+
+.header {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: $header-height;
+	z-index: 999;
+}
+
+.main {
+	min-height: calc(100vh - #{$header-height} - #{$footer-height} - #{$page-content-gap}*2 - #{$border-width}*2);
+	min-height: calc(var(--vh, 1vh) * 100 - #{$header-height} - #{$footer-height} - #{$page-content-gap}*2 - #{$border-width}*2);
+	margin-top: $page-content-gap;
+}
+
+.footer {
+	text-align: center;
+	margin-top: $page-content-gap;
+	max-height: $footer-height;
+}
+
+.header__container, .main-navigation {
+	width: 100%;
+	height: 100%;
+}
+
+.header__container .main-navigation,
+.header__container .main-navigation > div[data-focus-lock-disabled] {
+	width: 100%;
+	height: 100%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.header__container {
+	background: var(--colors-white);
+	border-bottom: $border-width solid var(--colors-gray-100);
+}
+
+.footer__container {
+	background: var(--colors-white);
+	border-top: $border-width solid var(--colors-gray-100);
+	padding-top: 1rem;
+	padding-bottom: 1.5rem;
+}
