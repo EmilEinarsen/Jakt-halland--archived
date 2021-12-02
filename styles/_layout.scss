@@ -2,6 +2,7 @@ $header-height: 120px;
 $footer-height: 120px;
 $page-content-gap: 5rem;
 $border-width: 2px;
+$wrapper-max-height: var(--sizes-container-xl);
 
 .wrapper {
 	min-width: var(--sizes-xs);
@@ -16,7 +17,7 @@ $border-width: 2px;
 
 .header__container, .main__container, .footer__container {
 	position: relative;
-	max-width: var(--sizes-container-lg);
+	max-width: $wrapper-max-height;
 	margin: 0 auto;
 	padding: 0 30px;
 }

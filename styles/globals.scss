@@ -35,7 +35,11 @@ html.no-scroll {
 
 article ul[role=list] {
 	margin-left: 1.5rem;
-	margin-top: 1.5rem;
+	margin-top: .5rem;
+}
+article ol[role=list] {
+	margin-left: 1.5rem;
+	margin-top: .5rem;
 }
 
 article h2 {

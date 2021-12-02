@@ -65,7 +65,8 @@ const MobileMenu = () => {
 								id="mobileMenu"
 							>
 								<Item as={props => <Link {...props} href="/" exact>Home</Link>} isDrawer onClick={onClose} />
-								<Item as={props => <Link {...props} href="/example" exact>Example</Link>} isDrawer onClick={onClose} />
+								<Item as={props => <Link {...props} href="/jagarexamen" exact>Jägarexamen</Link>} isDrawer onClick={onClose} />
+								<Item as={props => <Link {...props} href="/jaktledarutbildning" exact>Jaktledarutbildning</Link>} isDrawer onClick={onClose} />
 							</VStack>
 							<Portal containerRef={headerRef}>
 								{/* Needed since the portal breaks the outer Fade effect */}

@@ -10,7 +10,14 @@ const text: StyleConfig = {
 			marginTop: '1.5rem', 
 			lineHeight: '1.75rem'
 		},
-		caption: {
+		blockquote: {
+			
+		},
+		naked: {
+			fontSize: 'lg', 
+			fontWeight: 'normal'
+		},
+		overline: {
 			fontSize: 'md', 
 			fontWeight: 'medium', 
 			textTransform: 'uppercase', 
@@ -18,12 +25,10 @@ const text: StyleConfig = {
 			letterSpacing: '.1rem', 
 			marginTop: '1rem'
 		},
-		blockquote: {
-			
-		},
-		naked: {
-			fontSize: 'lg', 
-			fontWeight: 'normal'
+		caption: {
+			fontSize: 'md', 
+			color: 'gray.600', 
+			marginTop: '1rem',
 		},
 	},
 	defaultProps: {

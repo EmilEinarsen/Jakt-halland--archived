@@ -28,9 +28,10 @@ const Layout: React.FC<{ childKey: string }> = ({ children, childKey }) =>
 				</Box>
 				<VStack className="footer__container">
 					<Flex justify="space-between" flexWrap="wrap" gridGap="1rem" w="100%">
-						<Box flex="1"><Link href="/example">Home</Link></Box>
+						<Box flex="1"><Link href="/example">Hem</Link></Box>
 						<Box flex="2" d={{ base: 'none', sm: 'unset' }} />
-						<Box flex="1"><Link href="/example">Example</Link></Box>
+						<Box flex="1"><Link href="/jagarexamen">Jägarexamen</Link></Box>
+						<Box flex="1"><Link href="/jaktledarutbildning">Jaktledarutbildning</Link></Box>
 					</Flex>
 				</VStack>
 			</footer>

@@ -27,8 +27,9 @@ export const Menu = () =>
 		<Link href="/" aria-label="Go to homepage" exact><LogoIcon fontSize="2xl" /></Link>
 		<Box as="nav" className="nav" aria-label="Main">
 			<List className="nav__list" orientation="horizontal" alignItems="center">
-				<Item className="d-not-mobile" as={props => <Link {...props} href="/" exact>Home</Link>} />
-				<Item className="d-not-mobile" as={props => <Link {...props} href="/example" exact>Example</Link>} />
+				<Item className="d-not-mobile" as={props => <Link {...props} href="/" exact>Hem</Link>} />
+				<Item className="d-not-mobile" as={props => <Link {...props} href="/jagarexamen" exact>Jägarexamen</Link>} />
+				<Item className="d-not-mobile" as={props => <Link {...props} href="/jaktledarutbildning" exact>Jaktledarutbildning</Link>} />
 				<IconButton
 					size="lg"
 					aria-label="Open the menu"

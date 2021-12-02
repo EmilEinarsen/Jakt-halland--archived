@@ -9,6 +9,7 @@ import theme from 'theme'
 
 import 'styles/globals.scss'
 import Head from 'next/head'
+import { SWRConfig } from 'swr'
 
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
 	useMount(() => {
@@ -22,9 +23,11 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</Head>
 			<ChakraProvider theme={theme}>
-				<Layout childKey={router.route}>
-					<Component {...pageProps} />
-				</Layout>
+				<SWRConfig value={{ fetcher: (...args: Parameters<typeof fetch>) => fetch(...args).then(res => res.json()) }}>
+					<Layout childKey={router.route}>
+						<Component {...pageProps} />
+					</Layout>
+				</SWRConfig>
 			</ChakraProvider>
 		</>
 	)
