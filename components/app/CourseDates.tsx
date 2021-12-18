@@ -5,10 +5,11 @@ import { Collapse, Stat, StatLabel, StatNumber } from '@chakra-ui/react'
 
 interface CourseDatesProps {
 	dates?: [string,string][] | string[] | Date[]
+	isError?: boolean
 }
 
-export const CourseDates = ({ dates }: CourseDatesProps) => 
-	<Collapse in={dates?.length !== 0}>
+export const CourseDates = ({ dates, isError }: CourseDatesProps) => 
+	<Collapse in={dates?.length !== 0 && !isError}>
 		<Stat as="p">
 			<StatLabel as="span">Nästa kurstillfälle{dates?.length === 1 ? ': ' : 'n: '}</StatLabel>
 				<StatNumber as={props => 

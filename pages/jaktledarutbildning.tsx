@@ -4,12 +4,11 @@ import { Text } from "components/core/Text"
 import { UnorderedList, OrderedList, ListItem } from "@chakra-ui/react"
 import { Heading } from "components/core/Heading"
 import { CustomerInfo } from "components/app/CustomerInfo"
-import { priceFormat } from "utils/formatter"
 import { COURSE_TYPE, useCourses } from "./api/courses"
 import { CourseDates } from "components/app/CourseDates"
 
 const HuntingLeaderEducation: Page = () => {
-	const { data: { sorted } = {} } = useCourses()
+	const { data: { sorted } = {}, isError } = useCourses()
 	const courses = sorted?.[COURSE_TYPE.HUNTING_LEADER]
 	
   return (
@@ -19,7 +18,7 @@ const HuntingLeaderEducation: Page = () => {
 				<Text>
 					Pris: <Text.Price value={1800} />
 				</Text>
-				<CourseDates dates={courses?.map(v => v.date)} />
+				<CourseDates dates={courses?.map(v => v.date)} isError={isError} />
 				<Text>
 					Utbildningen omfattar:
 				</Text>

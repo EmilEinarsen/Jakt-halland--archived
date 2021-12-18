@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import useSWRImmutable from 'swr/immutable'
-import { client } from 'utils/contentfulClient'
+import { client, validateError, Error } from 'utils/contentfulClient'
 
 export enum COURSE_TYPE {
 	HUNTING_LICENCE_NORMAL = 'HUNTING_LICENCE_NORMAL',
@@ -52,35 +52,40 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<CourseData>
 ) {
-	const { items } = await client.getEntries<Course>()
-	console.log(items)
-	const courses = items
-		.map(item => item.fields)
-		.filter(v => !v.shouldHide)
-		.filter(v => new Date() < new Date(v.date))
-		.map(v => {
-			COURSE_TYPE[v.type] || console.error(`Unimplemented type: ${v.type}`)
-			COURSE_LOCATION[v.location] || console.error(`Unimplemented location: ${v.location}`)
-			return v.type !== COURSE_TYPE.HUNTING_LEADER ? {
-				...v,
-				dateRange: [v.date, v.endDate] as MultiDayCourse['dateRange'],
-			} : v
+	try {
+		const { items, ...rest } = await client.getEntries<Course>()
+		const courses = items
+			.map(item => item.fields)
+			.filter(v => !v.shouldHide)
+			.filter(v => new Date() < new Date(v.date))
+			.map(v => {
+				COURSE_TYPE[v.type] || console.error(`Unimplemented type: ${v.type}`)
+				COURSE_LOCATION[v.location] || console.error(`Unimplemented location: ${v.location}`)
+				return v.type !== COURSE_TYPE.HUNTING_LEADER ? {
+					...v,
+					dateRange: [v.date, v.endDate] as MultiDayCourse['dateRange'],
+				} : v
+			})
+		res.status(200).send({
+			courses,
+			sorted: courses.reduce((p,c) => {
+				p[c.type] || (p[c.type] = [])
+				p[c.type]!.push(c as any)
+				return p
+			}, Object.keys(COURSE_TYPE).reduce((p,c) => (p[c as COURSE_TYPE] = [], p), {} as CourseData['sorted']))
 		})
-
-  res.status(200).send({
-		courses,
-		sorted: courses.reduce((p,c) => {
-			p[c.type] || (p[c.type] = [])
-			p[c.type]!.push(c as any)
-			return p
-		}, Object.keys(COURSE_TYPE).reduce((p,c) => (p[c as COURSE_TYPE] = [], p), {} as CourseData['sorted']))
-	})
+	} catch (error) {
+		if(validateError(error)) throw error
+		throw new Error('Unknown')
+	}
 }
 
 export const useCourses = () => {
-	const props = useSWRImmutable<CourseData>('api/courses')
+	const props = useSWRImmutable<CourseData, Error>('api/courses')
+	
 	return { 
 		...props,
 		isLoading: !props.error && !props.data,
+		isError: props.error && !props.data,
 	}
 }

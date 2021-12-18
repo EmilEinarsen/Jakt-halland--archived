@@ -9,7 +9,7 @@ import { CourseDates } from "components/app/CourseDates"
 import { CoursePrice } from "components/app/CoursePrice"
 
 const HuntingLicense: Page = () => {
-	const { data: { sorted } = {} } = useCourses()
+	const { data: { sorted } = {}, isError } = useCourses()
 	const normal = sorted?.[COURSE_TYPE.HUNTING_LICENCE_NORMAL]
 	const intense = sorted?.[COURSE_TYPE.HUNTING_LICENCE_INTENSE]
 	
@@ -19,7 +19,7 @@ const HuntingLicense: Page = () => {
 			<article>
 				<Heading.H1>Normalkurs</Heading.H1>
 				<CoursePrice value={4000} />
-				<CourseDates dates={normal?.map(v => v.dateRange)} />
+				<CourseDates dates={normal?.map(v => v.dateRange)} isError={isError} />
 				<Text>
 					I paketet ingår:
 				</Text>
@@ -60,7 +60,7 @@ const HuntingLicense: Page = () => {
 			<article>
 				<Heading.H1>Intensivkurs</Heading.H1>
 				<CoursePrice value={9800} />
-				<CourseDates dates={intense?.map(v => v.dateRange)} />
+				<CourseDates dates={intense?.map(v => v.dateRange)} isError={isError} />
 				<Text>
 					I paketet ingår:
 				</Text>

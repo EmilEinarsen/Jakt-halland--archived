@@ -13,7 +13,7 @@ export const priceFormat = ({
 
 
 
-export const dateFormat = (...dates: (Date | string)[]) => (console.log(dates),
+export const dateFormat = (...dates: (Date | string)[]) => 
 	(new Intl.DateTimeFormat(
 		'sv', 
 		{
@@ -21,4 +21,4 @@ export const dateFormat = (...dates: (Date | string)[]) => (console.log(dates),
 			month: 'short',
 			day: 'numeric',
 		}
-	) as any)[dates.length === 1 ? 'format' : 'formatRange'](...dates.map(v => new Date(v))));
+	) as any)[dates.length === 1 ? 'format' : 'formatRange'](...dates.map(v => new Date(v)));
