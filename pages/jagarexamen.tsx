@@ -19,7 +19,7 @@ const HuntingLicense: Page = () => {
 			<article>
 				<Heading.H1>Normalkurs</Heading.H1>
 				<CoursePrice value={4000} />
-				<CourseDates dates={normal?.map(v => v.dateRange)} isError={isError} />
+				<CourseDates dates={normal?.map(v => [v.date,v.endDate])} isError={isError} />
 				<Text>
 					I paketet ingår:
 				</Text>
@@ -60,7 +60,7 @@ const HuntingLicense: Page = () => {
 			<article>
 				<Heading.H1>Intensivkurs</Heading.H1>
 				<CoursePrice value={9800} />
-				<CourseDates dates={intense?.map(v => v.dateRange)} isError={isError} />
+				<CourseDates dates={intense?.map(v => [v.date,v.endDate])} isError={isError} />
 				<Text>
 					I paketet ingår:
 				</Text>

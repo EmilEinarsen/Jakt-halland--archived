@@ -18,22 +18,19 @@ export enum COURSE_LOCATION {
 type SingleDayCourse = {
 	date: string
 	type: COURSE_TYPE.HUNTING_LEADER
-	location: COURSE_LOCATION
+	locations: COURSE_LOCATION[]
 	isFull: boolean
-	shouldHide: boolean
 }
 
 type MultiDayCourse = {
 	date: string
 	endDate: string
-	dateRange: [string,string]
 	type: 
 		| COURSE_TYPE.HUNTING_LICENCE_INTENSE 
 		| COURSE_TYPE.HUNTING_LICENCE_NORMAL 
 		| COURSE_TYPE.HUNTING_LICENCE_SUMMER
-	location: COURSE_LOCATION
+	locations: COURSE_LOCATION[]
 	isFull: boolean
-	shouldHide: boolean
 }
 
 type Course = SingleDayCourse | MultiDayCourse
@@ -53,18 +50,14 @@ export default async function handler(
   res: NextApiResponse<CourseData>
 ) {
 	try {
-		const { items, ...rest } = await client.getEntries<Course>()
+		const { items } = await client.getEntries<Course>()
 		const courses = items
 			.map(item => item.fields)
-			.filter(v => !v.shouldHide)
 			.filter(v => new Date() < new Date(v.date))
 			.map(v => {
 				COURSE_TYPE[v.type] || console.error(`Unimplemented type: ${v.type}`)
-				COURSE_LOCATION[v.location] || console.error(`Unimplemented location: ${v.location}`)
-				return v.type !== COURSE_TYPE.HUNTING_LEADER ? {
-					...v,
-					dateRange: [v.date, v.endDate] as MultiDayCourse['dateRange'],
-				} : v
+				v.locations.forEach(loc => COURSE_LOCATION[loc] || console.error(`Unimplemented location: ${loc}`))
+				return v
 			})
 		res.status(200).send({
 			courses,
